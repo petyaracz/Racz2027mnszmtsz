@@ -1,0 +1,24 @@
+doc.id	1943
+doc.mtsz_id	2032001
+doc.author	Szabó Lőrinc
+doc.title	Babits műhelyében
+doc.pubTitle	Magyar Csillag
+doc.lform_rhythm	0
+doc.lform_fiction	0
+doc.lform_register	szakny
+doc.lform_field	Irodt
+doc.wdate	1943
+doc.wdateorder	1943.2
+oldal.oldalszam	708 
+
+=hide detail
+doc.id	1946
+doc.mtsz_id	9107004
+doc.author	Déry Tibor
+doc.title	A gyerek és az atombomba
+doc.pubTitle	Útkaparó
+doc.lform_rhythm	0
+doc.lform_fiction	0
+doc.wdate	1946
+doc.wdateorder	1946.2
+oldal.oldalszam	118 
