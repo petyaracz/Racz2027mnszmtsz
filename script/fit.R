@@ -106,6 +106,42 @@ p2 = m_mnsz2 |>
 p1 + p2 + plot_annotation(title = 'MNSZ')
 ggsave('viz/mnsz.png', dpi = 900, width = 7, height = 3)
 
+## ranef
+ranef_mnsz = ranef(m_mnsz2, condVar = T) |> 
+  as_tibble() |>
+  arrange(-condval) |> 
+  mutate(
+    grp = fct_reorder(grp,condval),
+    category = case_when(
+      str_detect(grp, 'ek$') ~ '-ek (matek, krapek)',
+      str_detect(grp, 'esz$') ~ '-esz (kolesz, samesz)',
+      T ~ 'other'
+    ) |> fct_relevel('-ek (matek, krapek)', '-esz (kolesz, samesz)', 'other')
+         )
+
+ranef_lm = lm(condval ~ category, data = ranef_mnsz)
+
+p2 = plot_model(ranef_lm, 'pred', terms = 'category') +
+  theme_bw() +
+  coord_flip() +
+  labs(y = "Stem random intercept", x = NULL) +
+  ggtitle('Distribution of random intercepts')
+
+p1 = ranef_mnsz |> 
+  slice(1:24) |> 
+  ggplot(aes(y = grp, colour = category)) +
+    geom_segment(aes(x = 0, xend = condval, yend = grp), linewidth = 1) +
+    geom_point(aes(x = 0), size = 2) +
+    geom_point(aes(x = condval), size = 3) +
+    ggthemes::scale_colour_colourblind() +
+    labs(x = "Stem random intercept", y = NULL) +
+    theme_minimal() +
+    theme(axis.text.y = element_markdown(), legend.position = 'bottom') +
+    ggtitle('Top 24/144 random intercepts')
+
+p1 + p2 + plot_layout(axes = 'collect')
+ggsave('viz/mnsz_ranef.png', dpi = 900, width = 9, height = 3)
+
 # -- mtsz models -- #
 
 m_mtsz1 = glmmTMB(
@@ -170,3 +206,4 @@ plot_model(m_mtsz7, 'pred', terms = c('year_z','lit')) +
   scale_colour_viridis_d()
 
 ggsave('viz/mtsz.png', width = 4, height = 3, dpi = 900)
+

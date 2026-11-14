@@ -28,3 +28,7 @@ R packages: tidyverse, glmmTMB, performance, emmeans, sjPlot, broom.mixed, patch
 ## Known issue
 
 `build_query_mnsz.R` and `fit.R` still `setwd()` to `~/Documents/R/vh_misc/vh2/` instead of this repo's root — leftover from an earlier project location. Fix the path before running.
+
+## Experiment
+
+In progress.
